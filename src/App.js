@@ -1,26 +1,64 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// import React, { Component } from "react";
+// import {Datatable} from "@o2xp/react-datatable";
+// import { chunk } from "lodash";
+// import { storyOptionsSample } from "./data";
 
-function App() {
+// const refreshRows = () => {
+//   const { rows } = storyOptionsSample.data;
+//   const randomRows = Math.floor(Math.random() * rows.length) + 1;
+//   const randomTime = Math.floor(Math.random() * 4000) + 1000;
+//   const randomResolve = Math.floor(Math.random() * 10) + 1;
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       if (randomResolve > 3) {
+//         resolve(chunk(rows, randomRows)[0]);
+//       }
+//       reject(new Error("err"));
+//     }, randomTime);
+//   });
+// };
+
+// const defaultStory = () => {
+//   return (
+//     <Datatable
+//       options={storyOptionsSample}
+//       refreshRows={refreshRows}
+//       forceRerender
+//     />
+//   );
+// };
+
+
+// export default refreshRows;
+
+import React from "react";
+import { chunk } from "lodash";
+import { Datatable } from "@o2xp/react-datatable";
+import { storyOptionsSample } from "./data";
+
+const refreshRows = () => {
+  const { rows } = storyOptionsSample.data;
+  const randomRows = Math.floor(Math.random() * rows.length) + 1;
+  const randomTime = Math.floor(Math.random() * 4000) + 1000;
+  const randomResolve = Math.floor(Math.random() * 10) + 1;
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (randomResolve > 3) {
+        resolve(chunk(rows, randomRows)[0]);
+      }
+      reject(new Error("err"));
+    }, randomTime);
+  });
+};
+
+const defaultStory = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Datatable
+      options={storyOptionsSample}
+      refreshRows={refreshRows}
+      forceRerender
+    />
   );
-}
+};
 
-export default App;
+export default defaultStory;
