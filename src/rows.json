@@ -1,0 +1,112 @@
+[
+    {
+      "index": 0,
+      "id": "5cd9307025f4f0572995990f",
+      "name": "Scenario_UVs",
+      "version": 0.1,
+      "validate": false,
+      "modifyDate": "2017-06-02T11:22",
+      "description": "",
+      "jobs": "AnovaGPAR"
+    },
+    {
+      "index": 1,
+      "id": "5cd93070d21a6d52114fe3ef",
+      "name": "Scenario_UVs_2",
+      "version": 0.2,
+      "validate": true,
+      "modifyDate": "2018-12-08T04:35",
+      "description": "FR9436905982392049415972699",
+      "jobs": "AnovaGPAR_2"
+    },
+    {
+      "index": 2,
+      "id": "5cd930706cc8e22cc8480149",
+      "name": "Scenario_UVs_3",
+      "version": 1.1,
+      "validate": true,
+      "modifyDate": "2019-02-12T18:38",
+      "description": "",
+      "jobs": "xxxxxxxxxx"
+    },
+    {
+      "index": 3,
+      "id": "5cd93070f3acebc532d2a1eb",
+      "name": "Scenario_UVs_4",
+      "version": 1.2,
+      "validate": true,
+      "modifyDate": "",
+      "description": "LU808385215907579378",
+      "jobs": "Jackpot job 2"
+    },
+    {
+      "index": 4,
+      "id": "5cd93070cb5adea1913e45bb",
+      "name": "Scenario_UVs_21",
+      "version": 0.2,
+      "validate": true,
+      "modifyDate": "2018-07-25T08:29",
+      "description": "LU273045010440797850",
+      "jobs": "green"
+    },
+    {
+      "index": 5,
+      "id": "5cd93070977cc4d3fbda6f8f",
+      "name": "Scenario_UVs_22",
+      "version": 2.2,
+      "validate": true,
+      "modifyDate": "2017-04-28T10:07",
+      "description": "FR8679727098719082693394826",
+      "jobs": "blue"
+    },
+    {
+      "index": 6,
+      "id": "5cd930704a7c260884f5b296",
+      "name": "Scenario_UVs_26",
+      "version": 3.0,
+      "validate": true,
+      "modifyDate": "",
+      "description": "LU002147421603588718",
+      "jobs": "greGTO/IOTen"
+    },
+    {
+      "index": 7,
+      "id": "5cd930705c76585ebd55b974",
+      "name": "Scenario_UVs_JohnS",
+      "version": 0.6,
+      "validate": true,
+      "modifyDate": "2020-02-19T15:04",
+      "description": "FR8058367263864847703993309",
+      "jobs": "SaturdayJob"
+    },
+    {
+      "index": 8,
+      "id": "5cd9307003f57757d15de45a",
+      "name": "Scenario_UVs_MikeW",
+      "version": 4.3,
+      "validate": true,
+      "modifyDate": "2020-05-12T19:20",
+      "description": "LU175152348739412199",
+      "jobs": "5thday of month"
+    },
+    {
+      "index": 9,
+      "id": "5cd930707191a32b78178e92",
+      "name": "Scenario_UVs_PTOM",
+      "version": 3.2,
+      "validate": true,
+      "modifyDate": "2019-10-04T01:26",
+      "description": "LU623639666928889047",
+      "jobs": "Blut-PTOM"
+    },
+    {
+      "index": 10,
+      "id": "5cd9307069193b1585585016",
+      "name": "Scenario_UVs_JB",
+      "version": 2.5,
+      "validate": true,
+      "modifyDate": "2019-06-12T16:29",
+      "description": "FR7068136421658329007564624",
+      "jobs": "JackpotJob20"
+    }
+  ]
