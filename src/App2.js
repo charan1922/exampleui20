@@ -10,7 +10,8 @@ import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-
+import Dialog from '@material-ui/core/Dialog';
+import App4 from './App4'
 
 const useStyles = makeStyles({
   root: {
@@ -56,6 +57,7 @@ export default function MaterialTableDemo() {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
+  const [dialogOpen, setDialogOpen] = React.useState(false);
   const [placement, setPlacement] = React.useState();
   const [tableData, setTableData] = React.useState([]);
 
@@ -70,6 +72,7 @@ export default function MaterialTableDemo() {
 
   return (
     <>
+      <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} fullWidth> <App4 /> </Dialog>
       <Popper open={open} anchorEl={anchorEl} placement={placement} transition>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
@@ -144,6 +147,8 @@ export default function MaterialTableDemo() {
 
 
       <Button onClick={handleClick('top')}>Validate</Button>
+      <Button onClick={() => setDialogOpen(true)}>Add New</Button>
+
     </>
   );
 }
