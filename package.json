@@ -4,18 +4,22 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "4.9.7",
-    "material-table": "latest",
     "@material-ui/icons": "latest",
-    "mui-datatables": "2.0.0-beta-51",
+    "@material-ui/lab": "^4.0.0-alpha.47",
     "@material-ui/pickers": "^3.2.10",
     "@o2xp/react-datatable": "^1.1.44",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "formik": "^2.1.4",
     "loadash": "^1.0.0",
+    "material-table": "latest",
+    "mui-datatables": "2.0.0-beta-51",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-notifications": "^1.5.0",
+    "react-scripts": "3.4.1",
+    "yup": "^0.28.3"
   },
   "scripts": {
     "start": "react-scripts start",
