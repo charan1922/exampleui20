@@ -12,6 +12,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Dialog from '@material-ui/core/Dialog';
 import App4 from './App4'
+import AddSource from "./components/AddSource.js";
+import DialogContent from '@material-ui/core/DialogContent';
 
 const useStyles = makeStyles({
   root: {
@@ -58,10 +60,9 @@ export default function MaterialTableDemo() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
   const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [sourceOpen, setSourceOpen] = React.useState(false);
   const [placement, setPlacement] = React.useState();
   const [tableData, setTableData] = React.useState([]);
-
-
 
   const addData = (newData) => {
     console.log(newData)
@@ -73,10 +74,7 @@ export default function MaterialTableDemo() {
       });
       setDialogOpen(false)
     }, 600);
-
-
   }
-
 
   const handleClick = newPlacement => event => {
     setAnchorEl(event.currentTarget);
@@ -84,11 +82,20 @@ export default function MaterialTableDemo() {
     setPlacement(newPlacement);
   };
 
-
-
   return (
     <>
-      <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} fullWidth> <App4 addData={addData} /> </Dialog>
+      <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} fullWidth>
+        <DialogContent>
+          <App4 addData={addData} />
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={sourceOpen} onClose={() => setSourceOpen(false)} fullWidth>
+        <DialogContent>
+          <AddSource />
+        </DialogContent>
+      </Dialog>
+
       <Popper open={open} anchorEl={anchorEl} placement={placement} transition>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
@@ -116,11 +123,9 @@ export default function MaterialTableDemo() {
         title="Scenario Details"
         columns={state.columns}
         data={state.data}
-
         options={{
           selection: true
-        }}
-
+        }} 
         onSelectionChange={(rows) => setTableData(rows)}
         editable={{
           onRowAdd: newData =>
@@ -161,9 +166,9 @@ export default function MaterialTableDemo() {
         }}
       />
 
-
-      <Button onClick={handleClick('top')}>Validate</Button>
+      <Button onClick={() => handleClick('top')}>Validate</Button>
       <Button onClick={() => setDialogOpen(true)}>Add New</Button>
+      <Button onClick={() => setSourceOpen(true)}>Add Source</Button>
 
     </>
   );
