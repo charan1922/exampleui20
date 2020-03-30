@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const AddNewJob = () => {
+const AddNewJob = (props) => {
     const classes = useStyles();
 
     return (
@@ -30,13 +30,12 @@ const AddNewJob = () => {
                 validationSchema={passwordSchema}
                 onSubmit={(values) => {
                     const { jobList, scenarioName, desc, recipentEmail, symphonybookURL, globalNetSubject } = values;
-
-
+                    let data = { id: '5cd9307025f4f0572995990f', name: scenarioName, version: 1.0, validate: true, lastModifiedDate: '2017-06-02T11:22', jobs: 'AnovaGPAR', desc: desc };
+                    console.log(data, "a")
+                    props.addData(data);
                 }
                 }
             >
-
-
                 {props => {
                     const {
                         values,
@@ -44,17 +43,20 @@ const AddNewJob = () => {
                         errors,
                         handleChange,
                         handleBlur,
-                        handleSubmit
+                        handleSubmit,
+                        setFieldValue
                     } = props;
 
                     return (
-                        <form autoComplete="on" noValidate onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit}>
                             <Autocomplete
                                 multiple
                                 id="tags-outlined"
                                 name='jobList'
+                                label="JobList"
                                 options={jobList}
                                 style={{ margin: 8 }}
+                                onChange={(value) => setFieldValue('jobList', value)}
                                 getOptionLabel={option => option.jobName}
                                 defaultValue={[jobList[5]]}
                                 filterSelectedOptions
@@ -62,68 +64,76 @@ const AddNewJob = () => {
                                     <TextField
                                         {...params}
                                         variant="outlined"
-                                        label="filterSelectedOptions"
+                                        label="Job List"
+                                        name='jobList'
                                         placeholder="Job(s)"
+                                        // required
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                        error={errors.jobList && touched.jobList}
+                                        helperText={
+                                            errors.jobList &&
+                                            touched.jobList &&
+                                            errors.jobList
+                                        }
                                     />
                                 )}
                             />
 
-                            <div>
-                                <TextField
-                                    className="form-textfield form-textfield-label"
-                                    error={errors.scenarioName && touched.scenarioName}
-                                    id="filled-full-width"
-                                    name='scenarioName'
-                                    label="Scenario Name"
-                                    InputLabelProps={{
-                                        shrink: true
-                                    }}
-                                    value={values.scenarioName}
-                                    onChange={handleChange}
-                                    placeholder="*******"
-                                    margin="normal"
-                                    required
-                                    onBlur={handleBlur}
-                                    fullWidth
-                                    helperText={
-                                        errors.scenarioName &&
-                                        touched.scenarioName &&
-                                        errors.scenarioName
-                                    }
-                                />
-                            </div>
-                            <div>
-                                <TextField
-                                    className="form-textfield form-textfield-label"
-                                    error={errors.desc && touched.desc}
-                                    id="filled-multiline-static"
-                                    label="Description"
-                                    name='desc'
-                                    InputLabelProps={{
-                                        shrink: true
-                                    }}
-                                    value={values.desc}
-                                    onChange={handleChange}
-                                    placeholder="*******"
-                                    margin="normal"
-                                    required
-                                    onBlur={handleBlur}
-                                    fullWidth
-                                    helperText={
-                                        errors.desc &&
-                                        touched.desc &&
-                                        errors.desc
-                                    }
-                                />
+                            <TextField
+                                className="form-textfield form-textfield-label"
+                                error={errors.scenarioName && touched.scenarioName}
+                                id="filled-full-width"
+                                name='scenarioName'
+                                label="Scenario Name"
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                value={values.scenarioName}
+                                onChange={handleChange}
+                                placeholder="*******"
+                                margin="normal"
+                                required
+                                onBlur={handleBlur}
+                                fullWidth
+                                helperText={
+                                    errors.scenarioName &&
+                                    touched.scenarioName &&
+                                    errors.scenarioName
+                                }
+                            />
+
+                            <TextField
+                                className="form-textfield form-textfield-label"
+                                error={errors.desc && touched.desc}
+                                id="filled-multiline-static"
+                                label="Description"
+                                name='desc'
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                value={values.desc}
+                                onChange={handleChange}
+                                placeholder="*******"
+                                margin="normal"
+                                required
+                                onBlur={handleBlur}
+                                fullWidth
+                                helperText={
+                                    errors.desc &&
+                                    touched.desc &&
+                                    errors.desc
+                                }
+                            />
 
 
-                            </div>
 
                             <TextField
                                 className="form-textfield form-textfield-label"
                                 error={errors.recipentEmail && touched.recipentEmail}
                                 label="Recipent Email"
-                                id="filled-margin-dense"
+                                id="filled-margin-dense1"
                                 name='recipentEmail'
                                 InputLabelProps={{
                                     shrink: true
@@ -143,35 +153,33 @@ const AddNewJob = () => {
                             />
 
 
-                            <div>
 
-                                <TextField
-                                    id="filled-margin-normal"
-                                    className="form-textfield form-textfield-label"
-                                    error={errors.globalNetSubject && touched.globalNetSubject}
-                                    label="GlobalNet Subject"
-                                    name="globalNetSubject"
-                                    InputLabelProps={{
-                                        shrink: true
-                                    }}
-                                    value={values.globalNetSubject}
-                                    onChange={handleChange}
-                                    placeholder="*******"
-                                    margin="normal"
-                                    required
-                                    onBlur={handleBlur}
-                                    fullWidth
-                                    helperText={
-                                        errors.globalNetSubject &&
-                                        touched.globalNetSubject &&
-                                        errors.globalNetSubject
-                                    }
-                                />
-
-
-                            </div>
                             <TextField
-                                id="filled-margin-normal"
+                                id="filled-margin-normal12"
+                                className="form-textfield form-textfield-label"
+                                error={errors.globalNetSubject && touched.globalNetSubject}
+                                label="GlobalNet Subject"
+                                name="globalNetSubject"
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                value={values.globalNetSubject}
+                                onChange={handleChange}
+                                placeholder="*******"
+                                margin="normal"
+                                required
+                                onBlur={handleBlur}
+                                fullWidth
+                                helperText={
+                                    errors.globalNetSubject &&
+                                    touched.globalNetSubject &&
+                                    errors.globalNetSubject
+                                }
+                            />
+
+
+                            <TextField
+                                id="filled-margin-normal123"
                                 className="form-textfield form-textfield-label"
                                 error={errors.symphonybookURL && touched.symphonybookURL}
                                 label="SymphonyBook URL"
@@ -193,15 +201,11 @@ const AddNewJob = () => {
                                 }
                             />
 
-                            <div className="mt-3 mb-2 d-flex justify-content-center align-items-center">
-                                <Button
-                                    type="submit"
-                                    variant="contained"
-                                    color="primary"
-                                >
-                                    Add JOb
+                            <Button type="submit" variant="contained"
+
+                            >
+                                Add JOb
                         </Button>
-                            </div>
                         </form>
                     );
                 }}

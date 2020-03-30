@@ -62,6 +62,22 @@ export default function MaterialTableDemo() {
   const [tableData, setTableData] = React.useState([]);
 
 
+
+  const addData = (newData) => {
+    console.log(newData)
+    setTimeout(() => {
+      setState(prevState => {
+        const data = [...prevState.data];
+        data.push(newData);
+        return { ...prevState, data };
+      });
+      setDialogOpen(false)
+    }, 600);
+
+
+  }
+
+
   const handleClick = newPlacement => event => {
     setAnchorEl(event.currentTarget);
     setOpen(prev => placement !== newPlacement || !prev);
@@ -72,7 +88,7 @@ export default function MaterialTableDemo() {
 
   return (
     <>
-      <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} fullWidth> <App4 /> </Dialog>
+      <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} fullWidth> <App4 addData={addData} /> </Dialog>
       <Popper open={open} anchorEl={anchorEl} placement={placement} transition>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
