@@ -35,7 +35,36 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+
+
 const AddSource = (props) => {
+
+    const [sId, setId] = useState(1);
+    const [sourceList, setSource] = useState([{
+        id: sId,
+        label: "Source" + ' ' + sId,
+        name: "source" + sId,
+    }]);
+
+    const addSource = () => {
+        const souceData = {
+            id: sId + 1,
+            label: "Source" + ' ' + (sId+1),
+            name: "source" + (sId+1)
+            // date: new Date().toString(),
+        };
+
+        setId(sId + 1)
+        setSource([...sourceList, souceData]);
+        // setSource(prevState => {
+        //     const data = [...prevState.sourceList];
+        //     data.push(souceData);
+        //     return { ...prevState, data };
+        //   });
+    };
+
+    console.log(sourceList);
+
     const classes = useStyles();
 
     return (
@@ -45,7 +74,7 @@ const AddSource = (props) => {
                 validationSchema={passwordSchema}
                 onSubmit={(values) => {
                     const { source1, source2 } = values;
-                    
+
                     console.log(values);
                 }
                 }
@@ -63,71 +92,44 @@ const AddSource = (props) => {
 
                     return (
                         <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-                            <TextField
-                                select
-                                className="form-textfield form-textfield-label"
-                                error={errors.source1 && touched.source1}
-                                id="filled-multiline-static"
-                                label="Source 1"
-                                name='source1'
-                                InputLabelProps={{
-                                    shrink: true
-                                }}
-                                value={values.source1}
-                                onChange={handleChange}
-                                placeholder="*******"
-                                margin="normal"
-                                variant="outlined"
-                                required
-                                onBlur={handleBlur}
-                                fullWidth
-                                helperText={
-                                    errors.source1 &&
-                                    touched.source1 &&
-                                    errors.source1
-                                }
-                            >
-                                {source1data.map(option => (
-                                    <MenuItem key={option.value} value={option.value}>
-                                        {option.label}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
-                            <TextField
-                                select
-                                className="form-textfield form-textfield-label"
-                                error={errors.source2 && touched.source2}
-                                id="filled-multiline-static"
-                                label="Source 2"
-                                name='source2'
-                                InputLabelProps={{
-                                    shrink: true
-                                }}
-                                value={values.source2}
-                                onChange={handleChange}
-                                placeholder="*******"
-                                margin="normal"
-                                variant="outlined"
-                                required
-                                onBlur={handleBlur}
-                                fullWidth
-                                helperText={
-                                    errors.source2 &&
-                                    touched.source2 &&
-                                    errors.source2
-                                }
-                            >
-                                {source2data.map(option => (
-                                    <MenuItem key={option.value} value={option.value}>
-                                        {option.label}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
-
-
+                            {sourceList.map(sData => {
+                                const { id, label, name } = sData;
+                                return (
+                                    < TextField
+                                        select
+                                        className="form-textfield form-textfield-label"
+                                        error={errors[name] && touched[name]}
+                                        id={id}
+                                        label={label}
+                                        name={name}
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                        value={values[name]}
+                                        onChange={setFieldValue}
+                                        placeholder="*******"
+                                        margin="normal"
+                                        variant="outlined"
+                                        required
+                                        onBlur={handleBlur}
+                                        fullWidth
+                                        helperText={
+                                            errors[name] &&
+                                            touched[name] &&
+                                            errors[name]
+                                        }
+                                    >
+                                        {sourcedata.map(option => (
+                                            <MenuItem key={option.value} value={option.value}>
+                                                {option.label}
+                                            </MenuItem>
+                                        ))}
+                                    </TextField>
+                                );
+                            })}
 
                             <div className={classes.container}>
-                                <Button  variant="contained">
+                                <Button onClick={addSource} variant="contained">
                                     Add Source
                                </Button>
 
@@ -139,12 +141,12 @@ const AddSource = (props) => {
                     );
                 }}
             </Formik>
-        </div>
+        </div >
     );
 }
 
 
-const source1data = [
+const sourcedata = [
     {
         value: "db",
         label: "DB"
@@ -167,28 +169,6 @@ const source1data = [
     }
 ];
 
-const source2data = [
-    {
-        value: "db",
-        label: "DB"
-    },
-    {
-        value: "delimeter",
-        label: "Delimeter"
-    },
-    {
-        value: "json",
-        label: "JSON"
-    },
-    {
-        value: "xml",
-        label: "XML"
-    },
-    {
-        value: "api",
-        label: "API"
-    }
-];
 
 const initialValues = {
     source1: '',
