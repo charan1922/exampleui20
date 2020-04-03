@@ -106,7 +106,7 @@ const AddSource = (props) => {
                                             shrink: true
                                         }}
                                         value={values[name]}
-                                        onChange={setFieldValue}
+                                        onChange={handleChange}
                                         placeholder="*******"
                                         margin="normal"
                                         variant="outlined"
