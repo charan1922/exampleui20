@@ -28,14 +28,43 @@ const useStyles = makeStyles(theme => ({
     },
     container: {
         display: "Flex",
-        justifyContent: "center"
+        justifyContent: "space-between"
     },
     actions: {
         float: "right"
     }
 }));
 
+
+
 const AddSource = (props) => {
+
+    const [sId, setId] = useState(1);
+    const [sourceList, setSource] = useState([{
+        id: sId,
+        label: "Source" + ' ' + sId,
+        name: "source" + sId,
+    }]);
+
+    const addSource = () => {
+        const souceData = {
+            id: sId + 1,
+            label: "Source" + ' ' + (sId+1),
+            name: "source" + (sId+1)
+            // date: new Date().toString(),
+        };
+
+        setId(sId + 1)
+        setSource([...sourceList, souceData]);
+        // setSource(prevState => {
+        //     const data = [...prevState.sourceList];
+        //     data.push(souceData);
+        //     return { ...prevState, data };
+        //   });
+    };
+
+    console.log(sourceList);
+
     const classes = useStyles();
 
     return (
@@ -44,7 +73,8 @@ const AddSource = (props) => {
                 initialValues={initialValues}
                 validationSchema={passwordSchema}
                 onSubmit={(values) => {
-                    const { dbURI, dbType, query } = values;
+                    const { source1, source2 } = values;
+
                     console.log(values);
                 }
                 }
@@ -62,144 +92,92 @@ const AddSource = (props) => {
 
                     return (
                         <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-                            <TextField
-                                select
-                                className="form-textfield form-textfield-label"
-                                error={errors.dbURI && touched.dbURI}
-                                id="filled-multiline-static"
-                                label="DB URI"
-                                name='dbURI'
-                                InputLabelProps={{
-                                    shrink: true
-                                }}
-                                value={values.dbURI}
-                                onChange={handleChange}
-                                placeholder="*******"
-                                margin="normal"
-                                variant="outlined"
-                                required
-                                onBlur={handleBlur}
-                                fullWidth
-                                helperText={
-                                    errors.dbURI &&
-                                    touched.dbURI &&
-                                    errors.dbURI
-                                }
-                            >
-                                {dbURIdata.map(option => (
-                                    <MenuItem key={option.value} value={option.value}>
-                                        {option.label}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
+                            {sourceList.map(sData => {
+                                const { id, label, name } = sData;
+                                return (
+                                    < TextField
+                                        select
+                                        className="form-textfield form-textfield-label"
+                                        error={errors[name] && touched[name]}
+                                        id={id}
+                                        label={label}
+                                        name={name}
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                        value={values[name]}
+                                        onChange={handleChange}
+                                        placeholder="*******"
+                                        margin="normal"
+                                        variant="outlined"
+                                        required
+                                        onBlur={handleBlur}
+                                        fullWidth
+                                        helperText={
+                                            errors[name] &&
+                                            touched[name] &&
+                                            errors[name]
+                                        }
+                                    >
+                                        {sourcedata.map(option => (
+                                            <MenuItem key={option.value} value={option.value}>
+                                                {option.label}
+                                            </MenuItem>
+                                        ))}
+                                    </TextField>
+                                );
+                            })}
 
-                            <TextField
-                                select
-                                className="form-textfield form-textfield-label"
-                                error={errors.dbType && touched.dbType}
-                                id="filled-multiline-static"
-                                label="DB Type"
-                                name='dbType'
-                                InputLabelProps={{
-                                    shrink: true
-                                }}
-                                value={values.dbType}
-                                onChange={handleChange}
-                                placeholder="*******"
-                                margin="normal"
-                                variant="outlined"
-                                required
-                                onBlur={handleBlur}
-                                fullWidth
-                                helperText={
-                                    errors.dbType &&
-                                    touched.dbType &&
-                                    errors.dbType
-                                }
-                            >
-                                {dbTypeData.map(option => (
-                                    <MenuItem key={option.value} value={option.value}>
-                                        {option.label}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
+                            <div className={classes.container}>
+                                <Button onClick={addSource} variant="contained">
+                                    Add Source
+                               </Button>
 
-
-                            <TextField
-                                id="query"
-                                placeholder="query SQL"
-                                label="Query SQL"
-                                value={values.query}
-                                onChange={handleChange}
-                                InputLabelProps={{
-                                    shrink: true
-                                }}
-                                multiline
-                                fullWidth
-                                className="jr-wall-textarea"
-                                margin="normal"
-                                variant="outlined"
-                                rows="8"
-                                required
-                                onBlur={handleBlur}
-                                fullWidth
-                                error={errors.query && touched.query}
-                                helperText={errors.query && touched.query && errors.query}
-                            />
-
-                            <Button type="submit" variant="contained">
-                                Add Source
+                                <Button variant="contained" type="submit">
+                                    Save
                             </Button>
+                            </div>
                         </form>
                     );
                 }}
             </Formik>
-        </div>
+        </div >
     );
 }
 
 
-const dbURIdata = [
+const sourcedata = [
     {
-        value: "IDQUAL",
-        label: "IDQUAL"
+        value: "db",
+        label: "DB"
     },
     {
-        value: "IDQUAL1",
-        label: "IDQUAL2"
+        value: "delimeter",
+        label: "Delimeter"
     },
     {
-        value: "IDQUAL1",
-        label: "IDQUAL2"
+        value: "json",
+        label: "JSON"
+    },
+    {
+        value: "xml",
+        label: "XML"
+    },
+    {
+        value: "api",
+        label: "API"
     }
 ];
 
-const dbTypeData = [
-    {
-        value: "oracle",
-        label: "ORACLE"
-    },
-    {
-        value: "mySql",
-        label: "My SQL"
-    },
-    {
-        value: "postgres",
-        label: "POSTGRES"
-    }
-];
 
 const initialValues = {
-    dbURI: '',
-    dbType: '',
-    query: '',
+    source1: '',
+    source2: '',
 }
 const passwordSchema = Yup.object().shape({
-    dbURI: Yup.string()
+    source1: Yup.string()
         .required('Required'),
-    dbType: Yup.string()
-        .required('Required'),
-    query: Yup.string()
+    source2: Yup.string()
         .required('Required'),
 });
 
