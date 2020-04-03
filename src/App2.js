@@ -15,6 +15,7 @@ import App4 from './App4'
 import AddSource from "./components/AddSource.js";
 import DialogContent from '@material-ui/core/DialogContent';
 import PopoverOnHover from './components/PopoverOnHover.js/index.js'
+import SourceForm from './components/SourceForm'
 
 const useStyles = makeStyles({
   root: {
@@ -43,7 +44,7 @@ export default function MaterialTableDemo() {
   const [state, setState] = React.useState({
     columns: [
       { title: 'Id', field: 'id' },
-      { title: 'Name', field: 'name', render: rowData => <PopoverOnHover data={rowData}/> },
+      { title: 'Name', field: 'name', render: rowData => <PopoverOnHover data={rowData} /> },
       { title: 'Version', field: 'version', type: 'numeric' },
       { title: 'Validate', field: 'validate', render: icon => icon.validate ? <i className="material-icons">arrow_upward</i> : <i className="material-icons">arrow_downward</i> },
       { title: 'Last modified date', field: 'lastModifiedDate', type: 'datetime' },
@@ -94,6 +95,7 @@ export default function MaterialTableDemo() {
       <Dialog open={sourceOpen} onClose={() => setSourceOpen(false)} fullWidth>
         <DialogContent>
           <AddSource />
+          <SourceForm />
         </DialogContent>
       </Dialog>
 
@@ -126,7 +128,7 @@ export default function MaterialTableDemo() {
         data={state.data}
         options={{
           selection: true
-        }} 
+        }}
         onSelectionChange={(rows) => setTableData(rows)}
         editable={{
           onRowAdd: newData =>

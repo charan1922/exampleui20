@@ -44,8 +44,7 @@ const AddSource = (props) => {
                 initialValues={initialValues}
                 validationSchema={passwordSchema}
                 onSubmit={(values) => {
-                    const { source1, source2 } = values;
-                    
+                    const { dbURI, dbType, query } = values;
                     console.log(values);
                 }
                 }
@@ -66,14 +65,14 @@ const AddSource = (props) => {
                             <TextField
                                 select
                                 className="form-textfield form-textfield-label"
-                                error={errors.source1 && touched.source1}
+                                error={errors.dbURI && touched.dbURI}
                                 id="filled-multiline-static"
-                                label="Source 1"
-                                name='source1'
+                                label="DB URI"
+                                name='dbURI'
                                 InputLabelProps={{
                                     shrink: true
                                 }}
-                                value={values.source1}
+                                value={values.dbURI}
                                 onChange={handleChange}
                                 placeholder="*******"
                                 margin="normal"
@@ -82,28 +81,29 @@ const AddSource = (props) => {
                                 onBlur={handleBlur}
                                 fullWidth
                                 helperText={
-                                    errors.source1 &&
-                                    touched.source1 &&
-                                    errors.source1
+                                    errors.dbURI &&
+                                    touched.dbURI &&
+                                    errors.dbURI
                                 }
                             >
-                                {source1data.map(option => (
+                                {dbURIdata.map(option => (
                                     <MenuItem key={option.value} value={option.value}>
                                         {option.label}
                                     </MenuItem>
                                 ))}
                             </TextField>
+
                             <TextField
                                 select
                                 className="form-textfield form-textfield-label"
-                                error={errors.source2 && touched.source2}
+                                error={errors.dbType && touched.dbType}
                                 id="filled-multiline-static"
-                                label="Source 2"
-                                name='source2'
+                                label="DB Type"
+                                name='dbType'
                                 InputLabelProps={{
                                     shrink: true
                                 }}
-                                value={values.source2}
+                                value={values.dbType}
                                 onChange={handleChange}
                                 placeholder="*******"
                                 margin="normal"
@@ -112,12 +112,12 @@ const AddSource = (props) => {
                                 onBlur={handleBlur}
                                 fullWidth
                                 helperText={
-                                    errors.source2 &&
-                                    touched.source2 &&
-                                    errors.source2
+                                    errors.dbType &&
+                                    touched.dbType &&
+                                    errors.dbType
                                 }
                             >
-                                {source2data.map(option => (
+                                {dbTypeData.map(option => (
                                     <MenuItem key={option.value} value={option.value}>
                                         {option.label}
                                     </MenuItem>
@@ -125,14 +125,34 @@ const AddSource = (props) => {
                             </TextField>
 
 
-
+                            <TextField
+                                id="query"
+                                placeholder="query SQL"
+                                label="Query SQL"
+                                value={values.query}
+                                onChange={handleChange}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                multiline
+                                fullWidth
+                                className="jr-wall-textarea"
+                                margin="normal"
+                                variant="outlined"
+                                rows="8"
+                                required
+                                onBlur={handleBlur}
+                                fullWidth
+                                error={errors.query && touched.query}
+                                helperText={errors.query && touched.query && errors.query}
+                            />
                             <div className={classes.container}>
-                                <Button  variant="contained">
+                                <Button type="submit" variant="contained">
                                     Add Source
-                               </Button>
+                            </Button>
 
-                                <Button variant="contained" type="submit">
-                                    Save
+                                <Button type="submit" variant="contained">
+                                    Add Source
                             </Button>
                             </div>
                         </form>
@@ -144,60 +164,47 @@ const AddSource = (props) => {
 }
 
 
-const source1data = [
+const dbURIdata = [
     {
-        value: "db",
-        label: "DB"
+        value: "IDQUAL",
+        label: "IDQUAL"
     },
     {
-        value: "delimeter",
-        label: "Delimeter"
+        value: "IDQUAL1",
+        label: "IDQUAL2"
     },
     {
-        value: "json",
-        label: "JSON"
-    },
-    {
-        value: "xml",
-        label: "XML"
-    },
-    {
-        value: "api",
-        label: "API"
+        value: "IDQUAL1",
+        label: "IDQUAL2"
     }
 ];
 
-const source2data = [
+const dbTypeData = [
     {
-        value: "db",
-        label: "DB"
+        value: "oracle",
+        label: "ORACLE"
     },
     {
-        value: "delimeter",
-        label: "Delimeter"
+        value: "mySql",
+        label: "My SQL"
     },
     {
-        value: "json",
-        label: "JSON"
-    },
-    {
-        value: "xml",
-        label: "XML"
-    },
-    {
-        value: "api",
-        label: "API"
+        value: "postgres",
+        label: "POSTGRES"
     }
 ];
 
 const initialValues = {
-    source1: '',
-    source2: '',
+    dbURI: '',
+    dbType: '',
+    query: '',
 }
 const passwordSchema = Yup.object().shape({
-    source1: Yup.string()
+    dbURI: Yup.string()
         .required('Required'),
-    source2: Yup.string()
+    dbType: Yup.string()
+        .required('Required'),
+    query: Yup.string()
         .required('Required'),
 });
 
