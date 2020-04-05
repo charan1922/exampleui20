@@ -49,8 +49,8 @@ const AddSource = (props) => {
     const addSource = () => {
         const souceData = {
             id: sId + 1,
-            label: "Source" + ' ' + (sId+1),
-            name: "source" + (sId+1)
+            label: "Source" + ' ' + (sId + 1),
+            name: "source" + (sId + 1)
             // date: new Date().toString(),
         };
 
@@ -63,7 +63,6 @@ const AddSource = (props) => {
         //   });
     };
 
-    console.log(sourceList);
 
     const classes = useStyles();
 
@@ -73,9 +72,12 @@ const AddSource = (props) => {
                 initialValues={initialValues}
                 validationSchema={passwordSchema}
                 onSubmit={(values) => {
-                    const { source1, source2 } = values;
+                    let data = [];
+                    sourceList.map(item => {
+                        data.push({ ...item, 'sourceType': values[item.name] });
+                    })
 
-                    console.log(values);
+                    props.updateSources(data);
                 }
                 }
             >
@@ -172,13 +174,13 @@ const sourcedata = [
 
 const initialValues = {
     source1: '',
-    source2: '',
+    // source2: '',
 }
 const passwordSchema = Yup.object().shape({
     source1: Yup.string()
         .required('Required'),
-    source2: Yup.string()
-        .required('Required'),
+    // source2: Yup.string()
+    //     .required('Required'),
 });
 
 export default AddSource;
