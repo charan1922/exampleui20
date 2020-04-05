@@ -62,7 +62,7 @@ export default function MaterialTableDemo() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [sourceOpen, setSourceOpen] = useState(true);
+  const [sourceOpen, setSourceOpen] = useState(false);
   const [placement, setPlacement] = useState();
   const [tableData, setTableData] = useState([]);
   const [sourceFormsOpen, setSourceFormsOpen] = useState(false);
