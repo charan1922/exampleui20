@@ -8,14 +8,38 @@ const XML = ({ values,
     handleChange,
     handleBlur,
     handleSubmit,
-    setFieldValue }) => {
+    setFieldValue,
+    sourceDetails
+}) => {
+    const { id, label, name, sourceType } = sourceDetails;
     return (
         <>
+            <label>{label}</label>
 
             <TextField
-                label="XML URI"
+                label="Type of delimeter"
+                name='delimeterType'
+                placeholder="/t"
+                value={values.delimeterType}
+                onChange={handleChange}
+                InputLabelProps={{
+                    shrink: true
+                }}
+                multiline
+                fullWidth
+                className="jr-wall-textarea"
+                margin="normal"
+                variant="outlined"
+                required
+                onBlur={handleBlur}
+                error={errors.delimeterType && touched.delimeterType}
+                helperText={errors.delimeterType && touched.delimeterType && errors.delimeterType}
+            />
+
+            <TextField
+                label="S3 key"
                 name='xmlURI'
-                placeholder="https://"
+                placeholder=""
                 value={values.query}
                 onChange={handleChange}
                 InputLabelProps={{
@@ -31,13 +55,15 @@ const XML = ({ values,
                 error={errors.query && touched.query}
                 helperText={errors.query && touched.query && errors.query}
             />
+
+
             <TextField
                 select
                 className="form-textfield form-textfield-label"
                 error={errors.dbURI && touched.dbURI}
                 id="filled-multiline-static"
                 label="Primary Key"
-                name='primryKey'
+                name='primaryKey'
                 required
                 InputLabelProps={{
                     shrink: true
@@ -62,6 +88,7 @@ const XML = ({ values,
                 ))}
             </TextField>
 
+
             <TextField
                 label="Query Token"
                 name='queryToken'
@@ -80,6 +107,8 @@ const XML = ({ values,
                 error={errors.query && touched.query}
                 helperText={errors.query && touched.query && errors.query}
             />
+
+
 
 
             <TextField

@@ -33,7 +33,6 @@ const AddNewJob = (props) => {
                 onSubmit={(values) => {
                     const { jobList, scenarioName, desc, recipentEmail, symphonybookURL, globalNetSubject } = values;
                     let data = { id: '5cd9307025f4f0572995990f', name: scenarioName, version: 1.0, validate: true, lastModifiedDate: '2017-06-02T11:22', jobs: 'AnovaGPAR', desc: desc };
-                    console.log(data, "a")
                     props.addData(data);
                 }
                 }
@@ -203,11 +202,9 @@ const AddNewJob = (props) => {
                                 }
                             />
 
-                            <Button type="submit" variant="contained"
-
-                            >
+                            <Button type="submit" variant="contained">
                                 Add JOb
-                        </Button>
+                           </Button>
                         </form>
                     );
                 }}

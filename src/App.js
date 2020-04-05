@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MaterialTable from 'material-table';
 import { makeStyles } from '@material-ui/core/styles';
 import Popper from '@material-ui/core/Popper';
@@ -15,7 +15,7 @@ import AddJob from './components/AddJob'
 import AddSource from "./components/AddSource";
 import DialogContent from '@material-ui/core/DialogContent';
 import PopoverOnHover from './components/PopoverOnHover'
-import SourceForm from './components/Source'
+import SourceForm from './components/SourceForms'
 
 const useStyles = makeStyles({
   root: {
@@ -41,7 +41,7 @@ const useStyles = makeStyles({
 
 export default function MaterialTableDemo() {
   const classes = useStyles();
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     columns: [
       { title: 'Id', field: 'id' },
       { title: 'Name', field: 'name', render: rowData => <PopoverOnHover data={rowData} /> },
@@ -59,15 +59,18 @@ export default function MaterialTableDemo() {
   });
 
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [open, setOpen] = React.useState(false);
-  const [dialogOpen, setDialogOpen] = React.useState(false);
-  const [sourceOpen, setSourceOpen] = React.useState(true);
-  const [placement, setPlacement] = React.useState();
-  const [tableData, setTableData] = React.useState([]);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [sourceOpen, setSourceOpen] = useState(true);
+  const [placement, setPlacement] = useState();
+  const [tableData, setTableData] = useState([]);
+  const [sourceFormsOpen, setSourceFormsOpen] = useState(false);
+  const [sourcesSelected, setSourceSelected] = useState([]);
+
+
 
   const addData = (newData) => {
-    console.log(newData)
     setTimeout(() => {
       setState(prevState => {
         const data = [...prevState.data];
@@ -84,6 +87,14 @@ export default function MaterialTableDemo() {
     setPlacement(newPlacement);
   };
 
+
+  const updateSources = (sourceList) => {
+    setSourceSelected(sourceList);
+    setSourceOpen(false);
+    setSourceFormsOpen(true);
+
+  }
+
   return (
     <>
       <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} fullWidth>
@@ -94,34 +105,16 @@ export default function MaterialTableDemo() {
 
       <Dialog open={sourceOpen} onClose={() => setSourceOpen(false)} fullWidth>
         <DialogContent>
-          <AddSource />
-          <SourceForm />
+          <AddSource updateSources={updateSources} />
         </DialogContent>
       </Dialog>
 
-      <Popper open={open} anchorEl={anchorEl} placement={placement} transition>
-        {({ TransitionProps }) => (
-          <Fade {...TransitionProps} timeout={350}>
-            <Paper>
-              <Card className={classes.root}>
-                {tableData.map(item => {
-                  const { id, name, version, validate, lastModifiedDate, jobs, desc } = item;
-                  return (
-                    <CardContent key={id}>
-                      <Typography variant="h5" component="h2">{id}</Typography>
-                      <Typography variant="body2" component="p"> Job name : {name}</Typography>
-                      <Typography variant="body2" component="p"> Scenario name : {name}</Typography>
-                      <Typography variant="body2" component="p"> Scenario desc : {desc}</Typography>
-                      <Typography variant="body2" component="p"> Recipient email : {version}</Typography>
-                      <Typography variant="body2" component="p"> Global Net : {jobs}</Typography>
-                    </CardContent>
-                  );
-                })}
-              </Card>
-            </Paper>
-          </Fade>
-        )}
-      </Popper>
+      <Dialog open={sourceFormsOpen} onClose={() => setSourceFormsOpen(false)} fullWidth>
+        <DialogContent>
+          <SourceForm sourcesSelected={sourcesSelected} />
+        </DialogContent>
+      </Dialog>
+
       <MaterialTable
         title="Scenario Details"
         columns={state.columns}
@@ -173,6 +166,30 @@ export default function MaterialTableDemo() {
       <Button onClick={() => setDialogOpen(true)}>Add New</Button>
       <Button onClick={() => setSourceOpen(true)}>Add Source</Button>
 
+      {/* popper */}
+      <Popper open={open} anchorEl={anchorEl} placement={placement} transition>
+        {({ TransitionProps }) => (
+          <Fade {...TransitionProps} timeout={350}>
+            <Paper>
+              <Card className={classes.root}>
+                {tableData.map(item => {
+                  const { id, name, version, validate, lastModifiedDate, jobs, desc } = item;
+                  return (
+                    <CardContent key={id}>
+                      <Typography variant="h5" component="h2">{id}</Typography>
+                      <Typography variant="body2" component="p"> Job name : {name}</Typography>
+                      <Typography variant="body2" component="p"> Scenario name : {name}</Typography>
+                      <Typography variant="body2" component="p"> Scenario desc : {desc}</Typography>
+                      <Typography variant="body2" component="p"> Recipient email : {version}</Typography>
+                      <Typography variant="body2" component="p"> Global Net : {jobs}</Typography>
+                    </CardContent>
+                  );
+                })}
+              </Card>
+            </Paper>
+          </Fade>
+        )}
+      </Popper>
     </>
   );
 }

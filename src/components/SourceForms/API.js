@@ -8,13 +8,48 @@ const XML = ({ values,
     handleChange,
     handleBlur,
     handleSubmit,
-    setFieldValue }) => {
+    setFieldValue,
+    sourceDetails
+}) => {
+    const { id, label, name, sourceType } = sourceDetails;
+
     return (
         <>
+            <label>{label}</label>
+            <TextField
+                select
+                className="form-textfield form-textfield-label"
+                error={errors.dbType && touched.dbType}
+                id="filled-multiline-static"
+                label="Type of API"
+                name='fieldsToCompare'
+                InputLabelProps={{
+                    shrink: true
+                }}
+                value={values.dbType}
+                onChange={handleChange}
+                placeholder="*******"
+                margin="normal"
+                variant="outlined"
+                required
+                onBlur={handleBlur}
+                fullWidth
+                helperText={
+                    errors.dbType &&
+                    touched.dbType &&
+                    errors.dbType
+                }
+            >
+                {apiTypeData.map(option => (
+                    <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                    </MenuItem>
+                ))}
+            </TextField>
 
             <TextField
-                label="JSON URI"
-                name='jsonURI'
+                label="URI"
+                name='uri'
                 placeholder="https://"
                 value={values.query}
                 onChange={handleChange}
@@ -35,7 +70,7 @@ const XML = ({ values,
             <TextField
                 select
                 className="form-textfield form-textfield-label"
-                error={errors.jsonPrimaryKey && touched.jsonPrimaryKey}
+                error={errors.dbURI && touched.dbURI}
                 id="filled-multiline-static"
                 label="Primary Key"
                 name='primryKey'
@@ -43,7 +78,7 @@ const XML = ({ values,
                 InputLabelProps={{
                     shrink: true
                 }}
-                value={values.jsonPrimaryKey}
+                value={values.dbURI}
                 onChange={handleChange}
                 placeholder="*******"
                 margin="normal"
@@ -52,8 +87,8 @@ const XML = ({ values,
                 onBlur={handleBlur}
                 fullWidth
                 helperText={
-                    errors.jsonPrimaryKey &&
-                    touched.jsonPrimaryKey && errors.dbURI
+                    errors.dbURI &&
+                    touched.dbURI && errors.dbURI
                 }
             >
                 {primaryKeyData.map(option => (
@@ -62,6 +97,7 @@ const XML = ({ values,
                     </MenuItem>
                 ))}
             </TextField>
+
 
             <TextField
                 label="Query Token"
@@ -85,7 +121,7 @@ const XML = ({ values,
 
             <TextField
                 label="Replace Token"
-                name='replaceToken'
+                name='xmlURI'
                 placeholder=""
                 value={values.query}
                 onChange={handleChange}
@@ -104,17 +140,19 @@ const XML = ({ values,
             />
 
 
+
+
             <TextField
                 select
                 className="form-textfield form-textfield-label"
-                error={errors.jsonType && touched.jsonType}
+                error={errors.dbType && touched.dbType}
                 id="filled-multiline-static"
                 label="Fields to Compare"
                 name='fieldsToCompare'
                 InputLabelProps={{
                     shrink: true
                 }}
-                value={values.jsonType}
+                value={values.dbType}
                 onChange={handleChange}
                 placeholder="*******"
                 margin="normal"
@@ -123,9 +161,9 @@ const XML = ({ values,
                 onBlur={handleBlur}
                 fullWidth
                 helperText={
-                    errors.jsonType &&
-                    touched.jsonType &&
-                    errors.jsonType
+                    errors.dbType &&
+                    touched.dbType &&
+                    errors.dbType
                 }
             >
                 {fieldsData.map(option => (
@@ -151,6 +189,18 @@ const primaryKeyData = [
         label: "Column 2"
     },
 ];
+
+const apiTypeData = [
+    {
+        value: "JSON",
+        label: "JSON"
+    },
+    {
+        value: "XML",
+        label: "XML"
+    },
+];
+
 
 const fieldsData = [
     {

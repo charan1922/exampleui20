@@ -39,16 +39,34 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+
+const getSourceForm = (sourceDetails, props) => {
+    const { id, label, name, sourceType } = sourceDetails;
+    switch (sourceType) {
+        case 'api':
+            return <API sourceDetails={sourceDetails} {...props} />;
+        case 'xml':
+            return <XML sourceDetails={sourceDetails} {...props} />;
+        case 'json':
+            return <JSON sourceDetails={sourceDetails} {...props} />;
+        case 'db':
+            return <DB sourceDetails={sourceDetails} {...props} />;
+        case 'delimeter':
+            return <Delimeter sourceDetails={sourceDetails} {...props} />;
+        default:
+            return null;
+    }
+}
+
 const AddSource = (props) => {
     const classes = useStyles();
-
+    const { sourcesSelected } = props;
     return (
         <div className={classes.root}>
             <Formik
                 initialValues={initialValues}
                 validationSchema={passwordSchema}
                 onSubmit={(values) => {
-                    const { dbURI, dbType, query } = values;
                     console.log(values);
                 }
                 }
@@ -67,18 +85,9 @@ const AddSource = (props) => {
                     return (
                         <form noValidate autoComplete="off" onSubmit={handleSubmit}>
 
-
-
-                            {"api"}
-                            <API {...props} />
-                            {'db'}
-                            <DB {...props} />
-                            {"json"}
-                            <JSON {...props} />
-                            {'delimeter'}
-                            <Delimeter {...props} />
-                            {"xml"}
-                            <XML {...props} />
+                            {sourcesSelected && sourcesSelected.map(src => {
+                                return getSourceForm(src, props);
+                            })}
 
                             <div className={classes.container}>
                                 <Button type="submit" variant="contained">
@@ -93,36 +102,6 @@ const AddSource = (props) => {
     );
 }
 
-
-const dbURIdata = [
-    {
-        value: "IDQUAL",
-        label: "IDQUAL"
-    },
-    {
-        value: "IDQUAL1",
-        label: "IDQUAL2"
-    },
-    {
-        value: "IDQUAL1",
-        label: "IDQUAL2"
-    }
-];
-
-const dbTypeData = [
-    {
-        value: "oracle",
-        label: "ORACLE"
-    },
-    {
-        value: "mySql",
-        label: "My SQL"
-    },
-    {
-        value: "postgres",
-        label: "POSTGRES"
-    }
-];
 
 const initialValues = {
     dbURI: '',

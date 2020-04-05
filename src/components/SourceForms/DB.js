@@ -8,9 +8,12 @@ const DB = ({ values,
     handleChange,
     handleBlur,
     handleSubmit,
-    setFieldValue }) => {
+    setFieldValue,
+    sourceDetails }) => {
+    const { id, label, name, sourceType } = sourceDetails;
     return (
         <>
+            <label>{label}</label>
             <TextField
                 select
                 className="form-textfield form-textfield-label"
