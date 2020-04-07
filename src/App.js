@@ -16,7 +16,9 @@ import AddSource from "./components/AddSource";
 import DialogContent from '@material-ui/core/DialogContent';
 import PopoverOnHover from './components/PopoverOnHover'
 import SourceForm from './components/SourceForms'
-
+import DialogTitle from '@material-ui/core/DialogTitle';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -32,11 +34,12 @@ const useStyles = makeStyles({
   pos: {
     marginBottom: 12,
   },
+  dialogTitle: {
+    display: 'flex',
+    justifyContent: "flex-end",
+    // alignItems: "end"
+  }
 });
-
-
-
-
 
 
 export default function MaterialTableDemo() {
@@ -98,20 +101,36 @@ export default function MaterialTableDemo() {
   return (
     <>
       <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} fullWidth>
+        <DialogTitle className={classes.dialogTitle}>
+          <IconButton onClick={() => setDialogOpen(false)} >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
         <DialogContent>
           <AddJob addData={addData} />
         </DialogContent>
       </Dialog>
 
       <Dialog open={sourceOpen} onClose={() => setSourceOpen(false)} fullWidth>
+        <DialogTitle className={classes.dialogTitle}>
+          <IconButton onClick={() => setSourceOpen(false)} >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
         <DialogContent>
           <AddSource updateSources={updateSources} />
         </DialogContent>
       </Dialog>
 
       <Dialog open={sourceFormsOpen} onClose={() => setSourceFormsOpen(false)} fullWidth>
+        <DialogTitle className={classes.dialogTitl}>
+          <IconButton onClick={() => setSourceFormsOpen(false)} >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+
         <DialogContent>
-          <SourceForm sourcesSelected={sourcesSelected} />
+          <SourceForm sourcesSelected={sourcesSelected} tableData={tableData} />
         </DialogContent>
       </Dialog>
 
@@ -164,7 +183,7 @@ export default function MaterialTableDemo() {
 
       <Button onClick={handleClick('top')}>Validate</Button>
       <Button onClick={() => setDialogOpen(true)}>Add New</Button>
-      <Button onClick={() => setSourceOpen(true)}>Add Source</Button>
+      <Button disabled={tableData.length === 1 ? false : 'disabled'} onClick={() => setSourceOpen(true)}>Add Source</Button>
 
       {/* popper */}
       <Popper open={open} anchorEl={anchorEl} placement={placement} transition>

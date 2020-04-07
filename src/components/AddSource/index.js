@@ -89,7 +89,8 @@ const AddSource = (props) => {
                         handleChange,
                         handleBlur,
                         handleSubmit,
-                        setFieldValue
+                        setFieldValue,
+                        handleReset
                     } = props;
 
                     return (
@@ -131,6 +132,10 @@ const AddSource = (props) => {
                             })}
 
                             <div className={classes.container}>
+                                <Button onClick={handleReset} variant="contained">
+                                    Reset
+                               </Button>
+
                                 <Button onClick={addSource} variant="contained">
                                     Add Source
                                </Button>

@@ -17,9 +17,9 @@ const XML = ({ values,
             <label>{label}</label>
             <TextField
                 label="XML URI"
-                name='xmlURI'
+                name={`xmlURI${id}`}
                 placeholder="https://"
-                value={values.query}
+                value={values[`xmlURI${id}`]}
                 onChange={handleChange}
                 InputLabelProps={{
                     shrink: true
@@ -31,21 +31,21 @@ const XML = ({ values,
                 variant="outlined"
                 required
                 onBlur={handleBlur}
-                error={errors.query && touched.query}
-                helperText={errors.query && touched.query && errors.query}
+                error={errors[`xmlURI${id}`] && touched[`xmlURI${id}`]}
+                helperText={errors[`xmlURI${id}`] && touched[`xmlURI${id}`] && errors[`xmlURI${id}`]}
             />
             <TextField
                 select
                 className="form-textfield form-textfield-label"
-                error={errors.dbURI && touched.dbURI}
+                error={errors[`primaryKey${id}`] && touched[`primaryKey${id}`]}
                 id="filled-multiline-static"
                 label="Primary Key"
-                name='primryKey'
+                name={`primaryKey${id}`}
                 required
                 InputLabelProps={{
                     shrink: true
                 }}
-                value={values.dbURI}
+                value={values[`primaryKey${id}`]}
                 onChange={handleChange}
                 placeholder="*******"
                 margin="normal"
@@ -54,8 +54,8 @@ const XML = ({ values,
                 onBlur={handleBlur}
                 fullWidth
                 helperText={
-                    errors.dbURI &&
-                    touched.dbURI && errors.dbURI
+                    errors[`primaryKey${id}`] &&
+                    touched[`primaryKey${id}`] && errors[`primaryKey${id}`]
                 }
             >
                 {primaryKeyData.map(option => (
@@ -67,9 +67,9 @@ const XML = ({ values,
 
             <TextField
                 label="Query Token"
-                name='queryToken'
+                name={`queryToken${id}`}
                 placeholder=""
-                value={values.query}
+                value={values[`queryToken${id}`]}
                 onChange={handleChange}
                 InputLabelProps={{
                     shrink: true
@@ -80,16 +80,16 @@ const XML = ({ values,
                 margin="normal"
                 variant="outlined"
                 onBlur={handleBlur}
-                error={errors.query && touched.query}
-                helperText={errors.query && touched.query && errors.query}
+                error={errors[`queryToken${id}`] && touched[`queryToken${id}`]}
+                helperText={errors[`queryToken${id}`] && touched[`queryToken${id}`] && errors[`queryToken${id}`]}
             />
 
 
             <TextField
                 label="Replace Token"
-                name='xmlURI'
+                name={`xmlURI+${id}`}
                 placeholder=""
-                value={values.query}
+                value={values[`xmlURI+${id}`]}
                 onChange={handleChange}
                 InputLabelProps={{
                     shrink: true
@@ -101,8 +101,8 @@ const XML = ({ values,
                 variant="outlined"
 
                 onBlur={handleBlur}
-                error={errors.query && touched.query}
-                helperText={errors.query && touched.query && errors.query}
+                error={errors[`xmlURI+${id}`] && touched[`xmlURI+${id}`]}
+                helperText={errors[`xmlURI+${id}`] && touched[`xmlURI+${id}`] && errors[`xmlURI+${id}`]}
             />
 
 
@@ -111,14 +111,13 @@ const XML = ({ values,
             <TextField
                 select
                 className="form-textfield form-textfield-label"
-                error={errors.dbType && touched.dbType}
-                id="filled-multiline-static"
+                error={errors[`fieldsToCompare${id}`] && touched[`fieldsToCompare${id}`]}
                 label="Fields to Compare"
-                name='fieldsToCompare'
+                name={`fieldsToCompare${id}`}
                 InputLabelProps={{
                     shrink: true
                 }}
-                value={values.dbType}
+                value={values[`fieldsToCompare${id}`]}
                 onChange={handleChange}
                 placeholder="*******"
                 margin="normal"
@@ -127,9 +126,9 @@ const XML = ({ values,
                 onBlur={handleBlur}
                 fullWidth
                 helperText={
-                    errors.dbType &&
-                    touched.dbType &&
-                    errors.dbType
+                    errors[`fieldsToCompare${id}`] &&
+                    touched[`fieldsToCompare${id}`] &&
+                    errors[`fieldsToCompare${id}`]
                 }
             >
                 {fieldsData.map(option => (

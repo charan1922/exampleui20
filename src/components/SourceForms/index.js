@@ -60,7 +60,7 @@ const getSourceForm = (sourceDetails, props) => {
 
 const AddSource = (props) => {
     const classes = useStyles();
-    const { sourcesSelected } = props;
+    const { sourcesSelected, tableData } = props;
     return (
         <div className={classes.root}>
             <Formik
@@ -79,17 +79,33 @@ const AddSource = (props) => {
                         handleChange,
                         handleBlur,
                         handleSubmit,
-                        setFieldValue
+                        setFieldValue,
+                        handleReset
                     } = props;
 
                     return (
                         <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+                            {tableData && tableData.map(item => {
+                                const { id, name, version, validate, lastModifiedDate, jobs, desc } = item;
+                                return (
+                                    <>
+                                        <ul style={{ listStyle: 'none' }}>
+                                            <li><b>Job Name</b> : {jobs}</li>
+                                            <li><b>Scenario Name</b> : {name}</li>
+                                            <li><b>Scenario Description</b> : {desc}</li>
+                                        </ul>
+                                    </>);
+
+                            })}
 
                             {sourcesSelected && sourcesSelected.map(src => {
                                 return getSourceForm(src, props);
                             })}
 
                             <div className={classes.container}>
+                                <Button onClick={handleReset} variant="contained">
+                                    Reset
+                            </Button>
                                 <Button type="submit" variant="contained">
                                     Save
                             </Button>
