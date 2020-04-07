@@ -17,9 +17,9 @@ const XML = ({ values,
             <label>{label}</label>
             <TextField
                 label="JSON URI"
-                name='jsonURI'
+                name={`jsonURI${id}`}
                 placeholder="https://"
-                value={values.query}
+                value={values[`jsonURI${id}`]}
                 onChange={handleChange}
                 InputLabelProps={{
                     shrink: true
@@ -31,22 +31,22 @@ const XML = ({ values,
                 variant="outlined"
                 required
                 onBlur={handleBlur}
-                error={errors.query && touched.query}
-                helperText={errors.query && touched.query && errors.query}
+                error={errors[`jsonURI${id}`] && touched[`jsonURI${id}`]}
+                helperText={errors[`jsonURI${id}`] && touched[`jsonURI${id}`] && errors[`jsonURI${id}`]}
             />
 
             <TextField
                 select
                 className="form-textfield form-textfield-label"
-                error={errors.jsonPrimaryKey && touched.jsonPrimaryKey}
+                error={errors[`primryKey${id}`] && touched[`primryKey${id}`]}
                 id="filled-multiline-static"
                 label="Primary Key"
-                name='primryKey'
+                name={`primryKey${id}`}
                 required
                 InputLabelProps={{
                     shrink: true
                 }}
-                value={values.jsonPrimaryKey}
+                value={values[`primryKey${id}`]}
                 onChange={handleChange}
                 placeholder="*******"
                 margin="normal"
@@ -55,8 +55,8 @@ const XML = ({ values,
                 onBlur={handleBlur}
                 fullWidth
                 helperText={
-                    errors.jsonPrimaryKey &&
-                    touched.jsonPrimaryKey && errors.dbURI
+                    errors[`primryKey${id}`] &&
+                    touched[`primryKey${id}`] && errors[`primryKey${id}`]
                 }
             >
                 {primaryKeyData.map(option => (
@@ -68,9 +68,9 @@ const XML = ({ values,
 
             <TextField
                 label="Query Token"
-                name='queryToken'
+                name={`queryToken${id}`}
                 placeholder=""
-                value={values.query}
+                value={values[`queryToken${id}`]}
                 onChange={handleChange}
                 InputLabelProps={{
                     shrink: true
@@ -81,16 +81,16 @@ const XML = ({ values,
                 margin="normal"
                 variant="outlined"
                 onBlur={handleBlur}
-                error={errors.query && touched.query}
-                helperText={errors.query && touched.query && errors.query}
+                error={errors[`queryToken${id}`] && touched[`queryToken${id}`]}
+                helperText={errors[`queryToken${id}`] && touched[`queryToken${id}`] && errors[`queryToken${id}`]}
             />
 
 
             <TextField
                 label="Replace Token"
-                name='replaceToken'
+                name={`replaceToken${id}`}
                 placeholder=""
-                value={values.query}
+                value={values[`replaceToken${id}`]}
                 onChange={handleChange}
                 InputLabelProps={{
                     shrink: true
@@ -102,22 +102,21 @@ const XML = ({ values,
                 variant="outlined"
 
                 onBlur={handleBlur}
-                error={errors.query && touched.query}
-                helperText={errors.query && touched.query && errors.query}
+                error={errors[`replaceToken${id}`] && touched[`replaceToken${id}`]}
+                helperText={errors[`replaceToken${id}`] && touched[`replaceToken${id}`] && errors[`replaceToken${id}`]}
             />
 
 
             <TextField
                 select
                 className="form-textfield form-textfield-label"
-                error={errors.jsonType && touched.jsonType}
-                id="filled-multiline-static"
+                error={errors[`fieldsToCompare${id}`] && touched[`fieldsToCompare${id}`]}
                 label="Fields to Compare"
-                name='fieldsToCompare'
+                name={`fieldsToCompare${id}`}
                 InputLabelProps={{
                     shrink: true
                 }}
-                value={values.jsonType}
+                value={values[`fieldsToCompare${id}`]}
                 onChange={handleChange}
                 placeholder="*******"
                 margin="normal"
@@ -126,9 +125,9 @@ const XML = ({ values,
                 onBlur={handleBlur}
                 fullWidth
                 helperText={
-                    errors.jsonType &&
-                    touched.jsonType &&
-                    errors.jsonType
+                    errors[`fieldsToCompare${id}`] &&
+                    touched[`fieldsToCompare${id}`] &&
+                    errors[`fieldsToCompare${id}`]
                 }
             >
                 {fieldsData.map(option => (

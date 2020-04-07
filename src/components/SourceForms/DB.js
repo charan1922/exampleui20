@@ -17,14 +17,13 @@ const DB = ({ values,
             <TextField
                 select
                 className="form-textfield form-textfield-label"
-                error={errors.dbURI && touched.dbURI}
-                id="filled-multiline-static"
+                name={`dbURI${id}`}
+                error={errors[`dbURI${id}`] && touched[`dbURI${id}`]}
                 label="DB URI"
-                name='dbURI'
                 InputLabelProps={{
                     shrink: true
                 }}
-                value={values.dbURI}
+                value={values[`dbURI${id}`]}
                 onChange={handleChange}
                 placeholder="*******"
                 margin="normal"
@@ -33,9 +32,9 @@ const DB = ({ values,
                 onBlur={handleBlur}
                 fullWidth
                 helperText={
-                    errors.dbURI &&
-                    touched.dbURI &&
-                    errors.dbURI
+                    errors[`dbURI${id}`] &&
+                    touched[`dbURI${id}`] &&
+                    errors[`dbURI${id}`]
                 }
             >
                 {dbURIdata.map(option => (
@@ -48,14 +47,13 @@ const DB = ({ values,
             <TextField
                 select
                 className="form-textfield form-textfield-label"
-                error={errors.dbType && touched.dbType}
-                id="filled-multiline-static"
+                name={`dbType${id}`}
+                error={errors[`dbType${id}`] && touched[`dbType${id}`]}
                 label="DB Type"
-                name='dbType'
                 InputLabelProps={{
                     shrink: true
                 }}
-                value={values.dbType}
+                value={values[`dbType${id}`]}
                 onChange={handleChange}
                 placeholder="*******"
                 margin="normal"
@@ -64,9 +62,9 @@ const DB = ({ values,
                 onBlur={handleBlur}
                 fullWidth
                 helperText={
-                    errors.dbType &&
-                    touched.dbType &&
-                    errors.dbType
+                    errors[`dbType${id}`] &&
+                    touched[`dbType${id}`] &&
+                    errors[`dbType${id}`]
                 }
             >
                 {dbTypeData.map(option => (
@@ -78,10 +76,10 @@ const DB = ({ values,
 
 
             <TextField
-                id="query"
+                name={`querySql${id}`}
                 placeholder="query SQL"
                 label="Query SQL"
-                value={values.query}
+                value={values[`querySql${id}`]}
                 onChange={handleChange}
                 InputLabelProps={{
                     shrink: true
@@ -94,8 +92,8 @@ const DB = ({ values,
                 rows="8"
                 required
                 onBlur={handleBlur}
-                error={errors.query && touched.query}
-                helperText={errors.query && touched.query && errors.query}
+                error={errors[`querySql${id}`] && touched[`querySql${id}`]}
+                helperText={errors[`querySql${id}`] && touched[`querySql${id}`] && errors[`querySql${id}`]}
             />
         </>
     );

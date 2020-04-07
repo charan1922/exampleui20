@@ -20,6 +20,10 @@ const useStyles = makeStyles(theme => ({
             margin: theme.spacing(3),
         },
     },
+    container: {
+        display: "Flex",
+        justifyContent: "space-between"
+    },
 }));
 
 const AddNewJob = (props) => {
@@ -45,7 +49,8 @@ const AddNewJob = (props) => {
                         handleChange,
                         handleBlur,
                         handleSubmit,
-                        setFieldValue
+                        setFieldValue,
+                        handleReset
                     } = props;
 
                     return (
@@ -201,10 +206,14 @@ const AddNewJob = (props) => {
                                     errors.symphonybookURL
                                 }
                             />
-
-                            <Button type="submit" variant="contained">
-                                Add JOb
+                            <div className={classes.container}>
+                                <Button onClick={handleReset} variant="contained">
+                                    Reset
+                               </Button>
+                                <Button type="submit" variant="contained">
+                                    Add Job
                            </Button>
+                            </div>
                         </form>
                     );
                 }}
