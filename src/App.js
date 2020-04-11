@@ -49,7 +49,7 @@ export default function MaterialTableDemo() {
       { title: 'Id', field: 'id' },
       { title: 'Name', field: 'name', render: rowData => <PopoverOnHover data={rowData} /> },
       { title: 'Version', field: 'version', type: 'numeric' },
-      { title: 'Validate', field: 'validate', render: icon => icon.validate ? <i className="material-icons">arrow_upward</i> : <i className="material-icons">arrow_downward</i> },
+      { title: 'Validate', field: 'validate', render: icon => icon.validate ?<span style={{color:"green"}}> <i className="material-icons">arrow_upward</i></span> : icon.validate === false ? <span style={{color:"red"}}> <i className="material-icons">arrow_downward</i> </span> : ''},
       { title: 'Last modified date', field: 'lastModifiedDate', type: 'datetime' },
       { title: 'Jobs', field: 'jobs' },
       { title: 'Description', field: 'desc' },
